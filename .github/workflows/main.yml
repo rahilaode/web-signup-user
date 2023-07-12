@@ -36,5 +36,5 @@ jobs:
         env: 
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224
+          ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd /home/ubuntu && git pull origin master && docker-compose down && docker-compose up -d"
       
