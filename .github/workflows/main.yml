@@ -21,18 +21,23 @@ jobs:
       - name: Build service
         run: |
           docker-compose up -d
-          
+
   my-cd:
-    needs: my-ci 
+    needs: my-ci
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Setup SSH KEYS
+      - name: Set up SSH keys
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy_key.pem
-          chmod 400 deploy_key.pem
-          
-      - name: Deploy to server   
+          chmod 600 deploy_key.pem
+
+      - name: Configure known hosts
         run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd /home/ubuntu && git pull origin master && docker-compose down && docker-compose up -d"
-      
+          ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd /home/ubuntu/ && git pull origin master && docker-compose down && docker-compose up -d"
