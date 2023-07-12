@@ -36,9 +36,7 @@ jobs:
         run: mkdir -p ~/.ssh
       
       - name: Create project directory
-        run: |
-          cd /home/ubuntu
-          mkdir signup-user
+        run: mkdir -p ~/home/ubuntu/signup-user 
           
       - name: Configure known hosts
         run: |
