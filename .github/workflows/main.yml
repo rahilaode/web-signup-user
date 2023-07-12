@@ -30,7 +30,7 @@ jobs:
       - name: Setup SSH KEYS
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy_key.pem
-          chmod 600 deploy_key.pem
+          chmod 400 deploy_key.pem
           
       - name: Deploy to server   
         env: 
