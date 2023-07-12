@@ -34,13 +34,13 @@ jobs:
 
       - name: Create SSH directory
         run: mkdir -p ~/.ssh
-      
-      - name: Create project directory
-        run: mkdir -p ~/home/ubuntu/signup-user 
-          
+        
       - name: Configure known hosts
         run: |
           ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
+      
+      - name: Create project directory
+        run: mkdir -p ~/signup-user 
 
       - name: Deploy to server
         env:
