@@ -34,7 +34,12 @@ jobs:
 
       - name: Create SSH directory
         run: mkdir -p ~/.ssh
-
+      
+      - name: Create project directory
+        run: |
+          cd /home/ubuntu
+          mkdir signup-user
+          
       - name: Configure known hosts
         run: |
           ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
@@ -43,4 +48,12 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd /home/ubuntu && git pull origin master && docker-compose down && docker-compose up -d"
+          ssh -i deploy_key.pem ubuntu@108.136.162.224 
+          cd /home/ubuntu/signup-user 
+          git init
+          git remote add origin https://github.com/rahilwisdom/web-signup-user.git
+          git fetch origin
+          git checkout master
+          git pull origin master
+          docker-compose down
+          docker-compose up -d
