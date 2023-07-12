@@ -45,6 +45,5 @@ jobs:
         run: |
           ssh -i deploy_key.pem ubuntu@108.136.162.224 
           git clone https://github.com/rahilwisdom/web-signup-user.git
-          cd ~/web-signup-user
-          docker-compose down
-          docker-compose up -d
+          ls
+          pwd
