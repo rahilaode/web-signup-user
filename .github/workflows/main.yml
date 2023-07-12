@@ -21,3 +21,20 @@ jobs:
       - name: Build service
         run: |
           docker-compose up -d
+          
+  my-cd:
+    needs: my-ci 
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Setup SSH KEYS
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy_key.pem
+          chmod 600 deploy_key.pem
+          
+      - name: Deploy to server   
+        env: 
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          ssh -i deploy_key.pem ubuntu@108.136.162.224
+      
