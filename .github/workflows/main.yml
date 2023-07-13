@@ -38,7 +38,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy_key.pem
           chmod 600 deploy_key.pem
 
-      - name: Create SSH-directory
+      - name: Create SSH directory
         run: mkdir -p ~/.ssh
         
       - name: Configure known hosts
