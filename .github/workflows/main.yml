@@ -19,7 +19,6 @@ jobs:
           sudo apt-get install -y docker-compose
 
   my-cd:
-    needs: my-ci
     runs-on: ubuntu-latest
 
     steps:
