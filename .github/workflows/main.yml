@@ -6,7 +6,8 @@ on:
       - master
 
 jobs:
-  my-ci:
+  build:
+    name: build project
     runs-on: ubuntu-latest
 
     steps:
@@ -27,11 +28,12 @@ jobs:
 
       - name: Set up Docker Compose
         run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224 "sudo apt-get update && sudo apt-get install -y docker-compose"
+          ssh -i deploy_key.pem ubuntu@108.136.162.224 "sudo apt-get update && sudo apt-get install -y docker-compose && cd web-signup-user && git pull origin master"
           
-  my-cd:
+  deploy:
+    name: Deployment
     runs-on: ubuntu-latest
-    needs: my-ci
+    needs: build
     steps:
       - name: Set up SSH keys
         run: |
@@ -47,4 +49,4 @@ jobs:
           
       - name: Deploy to server
         run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224 "git clone https://github.com/rahilwisdom/web-signup-user.git && cd web-signup-user && sudo docker-compose down && sudo docker-compose up -d"
+          ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd web-signup-user && sudo docker-compose down && sudo docker-compose up -d"
