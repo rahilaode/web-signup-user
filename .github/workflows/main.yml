@@ -26,7 +26,7 @@ jobs:
         run: |
           ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
 
-      - name: Set up Docker Compose
+      - name: Update, install docker compose, and pull from repository
         run: |
           ssh -i deploy_key.pem ubuntu@108.136.162.224 "sudo apt-get update && sudo apt-get install -y docker-compose && cd web-signup-user && git pull origin master"
           
@@ -47,6 +47,6 @@ jobs:
         run: |
           ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
           
-      - name: Deploy to server
+      - name: Run Container
         run: |
           ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd web-signup-user && sudo docker-compose down && sudo docker-compose up -d"
