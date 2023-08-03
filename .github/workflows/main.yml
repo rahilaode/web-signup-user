@@ -1,4 +1,4 @@
-name: CI/CD
+name: Belajar Secrets
 
 on:
   push:
@@ -6,47 +6,14 @@ on:
       - master
 
 jobs:
-  build:
-    name: build project
+  testing:
+    name: Test Penggunaan Environment Secrets
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         
-      - name: Set up SSH keys
+      - name: Print Environment Secrets
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy_key.pem
-          chmod 600 deploy_key.pem
-
-      - name: Create SSH directory
-        run: mkdir -p ~/.ssh
-        
-      - name: Configure known hosts
-        run: |
-          ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
-
-      - name: Update, install docker compose, and pull from repository
-        run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224 "sudo apt-get update && sudo apt-get install -y docker-compose && cd web-signup-user && git pull origin master"
-          
-  deploy:
-    name: Deployment
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Set up SSH keys
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > deploy_key.pem
-          chmod 600 deploy_key.pem
-
-      - name: Create SSH directory
-        run: mkdir -p ~/.ssh
-        
-      - name: Configure known hosts
-        run: |
-          ssh-keyscan 108.136.162.224 >> ~/.ssh/known_hosts
-          
-      - name: Run Container
-        run: |
-          ssh -i deploy_key.pem ubuntu@108.136.162.224 "cd web-signup-user && sudo docker-compose down && sudo docker-compose up -d"
+          echo "${{ secrets.MATERI_6 }}"
