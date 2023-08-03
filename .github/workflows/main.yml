@@ -16,5 +16,4 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Print Environment Secrets
-        run: |
-          echo "${{ env.MATERI_6 }}"
+        run: echo "${{ env.MATERI_6 }}"
