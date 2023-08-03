@@ -6,14 +6,15 @@ on:
       - master
 
 jobs:
-  testing:
-    name: Test Penggunaan Environment Secrets
+  Belajar:
+    name: Belajar Penggunaan Environment Secrets
     runs-on: ubuntu-latest
-
+    environment: Development
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         
       - name: Print Environment Secrets
         run: |
-          echo "${{ secrets.MATERI_6 }}"
+          echo "${{ env.MATERI_6 }}"
