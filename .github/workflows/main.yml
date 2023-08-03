@@ -12,11 +12,9 @@ jobs:
     environment: Development
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        
       - name: Print Environment Secrets
         run: |
           echo "${{ env.MATERI_6 }}" > MATERI_6.txt
           pwd
           ls
+          cat MATERI_6.txt
