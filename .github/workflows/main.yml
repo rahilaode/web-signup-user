@@ -18,4 +18,5 @@ jobs:
       - name: Print Environment Secrets
         run: |
           echo "${{ env.MATERI_6 }}" > MATERI_6.txt
-          cat MATERI_6.txt
+          pwd
+          ls
